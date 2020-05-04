@@ -5,7 +5,7 @@ RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile* /myapp
 RUN bundle install
-COPY package.json /myapp
+COPY package.json yarn.lock /myapp
 RUN yarn install --check-files
 COPY . /myapp
 
