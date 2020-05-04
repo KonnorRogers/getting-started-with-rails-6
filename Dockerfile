@@ -1,11 +1,19 @@
 FROM ruby:2.5.0
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client curl bash yarn
+
+# Adding NodeJS / Yarn
+RUN curl https://deb.nodesource.com/setup_12.x | bash
+RUN curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update -qq && apt-get install -y \
+  postgresql-client build-essential yarn nodejs
+
+
 RUN mkdir /myapp
 WORKDIR /myapp
-COPY Gemfile* /myapp
+COPY Gemfile* /myapp/
 RUN bundle install
-COPY package.json yarn.lock /myapp
+COPY package.json yarn.lock /myapp/
 RUN yarn install --check-files
 COPY . /myapp
 
