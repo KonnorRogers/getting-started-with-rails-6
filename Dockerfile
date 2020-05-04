@@ -1,4 +1,4 @@
-FROM ruby:2.5
+FROM ruby:2.5.8
 
 # Adding NodeJS / Yarn
 RUN curl https://deb.nodesource.com/setup_12.x | bash
