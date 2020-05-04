@@ -1,11 +1,12 @@
-FROM ruby:2.5
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client curl bash
+FROM ruby:2.5.0
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client curl bash yarn
 RUN mkdir /myapp
 WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
+COPY Gemfile* /myapp
 RUN bundle install
+COPY package.json /myapp
+RUN yarn install --check-files
 COPY . /myapp
 
 # Add a script to be executed every time the container starts.
