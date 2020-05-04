@@ -1,4 +1,4 @@
-FROM ruby:2.5.0
+FROM ruby:2.5
 
 # Adding NodeJS / Yarn
 RUN curl https://deb.nodesource.com/setup_12.x | bash
@@ -13,9 +13,8 @@ RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile* /myapp/
 RUN bundle install
-COPY package.json yarn.lock /myapp/
-RUN yarn install --check-files
 COPY . /myapp
+RUN yarn install --check-files
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
