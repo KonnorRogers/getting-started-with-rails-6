@@ -7,7 +7,7 @@ RUN curl https://deb.nodesource.com/setup_12.x | bash \
 
 RUN apt-get update -qq && apt-get install -y \
   postgresql-client build-essential yarn nodejs \
-  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /myapp
 WORKDIR /myapp
