@@ -32,8 +32,7 @@ services:
       - NODE_ENV=development
       - RAILS_ENV=development
       - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-    # hot module replacement & port set to 3035 & bind host to 0.0.0.0
-    command: ./bin/webpack-dev-server
+    command: "./bin/webpack-dev-server --hot --port 3035"
     volumes:
       - .:/webpacker
     ports:
