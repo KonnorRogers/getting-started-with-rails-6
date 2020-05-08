@@ -4,6 +4,8 @@ services:
     image: postgres:12.2
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=example
   web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -16,7 +18,9 @@ services:
       - "3000:3000"
 
     environment:
+      - POSTGRES_PASSWORD=example
       - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
 
     depends_on:
       - db
@@ -24,8 +28,12 @@ services:
 
   webpacker:
     build: .
-    # hot module replacement & port set to 3035 & bind host to 0.0.0.0
-    command: bash -c "./bin/webpack-dev-server --mode development --hot --port 3035 --host 0.0.0.0"
+    environment: 
+      - NODE_ENV=development
+      - RAILS_ENV=development
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+    command: "./bin/webpack-dev-server --hot --port 3035"
+    volumes:
+      - .:/webpacker
     ports:
-      - 3035:3035
-
+      - "3035:3035"
