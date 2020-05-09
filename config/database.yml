@@ -14,8 +14,3 @@ development:
 test:
   <<: *default
   database: myapp_test
-
-
-test:
-  <<: *default
-  database: myapp_test
