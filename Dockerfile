@@ -27,7 +27,7 @@ RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
-RUN mkdir /myapp
+RUN mkdir -p /myapp && mkdir -p /myapp/tmp && mkdir -p /usr/local/bundle
 WORKDIR /myapp
 
 # Install rails related dependencies
@@ -45,9 +45,10 @@ ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 # Allow access to port 3000
 EXPOSE 3000
 
-RUN mkdir /myapp/tmp
 RUN chown --changes --silent --no-dereference --recursive \
-    --from=0:0 ${USER_ID}:${GROUP_ID} /myapp
+    --from=0:0 ${USER_ID}:${GROUP_ID} \
+      /myapp \
+      /usr/local/bundle
 
 # Define the user running the container
 USER user
