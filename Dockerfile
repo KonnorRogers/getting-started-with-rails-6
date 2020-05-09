@@ -27,7 +27,7 @@ RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
-RUN mkdir -p /myapp && mkdir -p /myapp/tmp
+RUN mkdir -p /myapp && mkdir -p /myapp/tmp/db
 WORKDIR /myapp
 
 # Install rails related dependencies
