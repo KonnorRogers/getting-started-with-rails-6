@@ -27,14 +27,23 @@ RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
-RUN mkdir -p /myapp && mkdir -p /myapp/tmp && mkdir -p /usr/local/bundle
+RUN mkdir -p /myapp && mkdir -p /myapp/tmp
 WORKDIR /myapp
 
 # Install rails related dependencies
 COPY Gemfile* /myapp/
-RUN bundle install
 COPY package.json /myapp/
 COPY yarn.lock /myapp/
+
+
+RUN chown --changes --silent --no-dereference --recursive \
+    --from=0:0 ${USER_ID}:${GROUP_ID} \
+      /myapp
+
+# Define the user running the container
+USER user
+
+RUN bundle install
 RUN yarn install --check-files
 
 # Copy over all files
@@ -45,13 +54,7 @@ ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 # Allow access to port 3000
 EXPOSE 3000
 
-RUN chown --changes --silent --no-dereference --recursive \
-    --from=0:0 ${USER_ID}:${GROUP_ID} \
-      /myapp \
-      /usr/local/bundle
 
-# Define the user running the container
-USER user
 
 # Start the main process.
 CMD ["rails", "server", "-b", "0.0.0.0"]
