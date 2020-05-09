@@ -47,7 +47,7 @@ RUN bundle install
 RUN yarn install --check-files
 
 # Copy over all files
-COPY . .
+COPY --chown=${USER_ID}:${GROUP_ID} . .
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 
