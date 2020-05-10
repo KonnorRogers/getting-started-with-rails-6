@@ -11,7 +11,6 @@ RUN apt-get update -qq && apt-get install -y \
   postgresql-client build-essential yarn nodejs \
   && rm -rf /var/lib/apt/lists/*
 
-
 # This is where we build the rails app
 FROM builder as rails-app
 
@@ -27,14 +26,13 @@ RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
-RUN mkdir -p /myapp && mkdir -p /myapp/tmp/db
+RUN mkdir -p /myapp
 WORKDIR /myapp
 
 # Install rails related dependencies
 COPY Gemfile* /myapp/
 COPY package.json /myapp/
 COPY yarn.lock /myapp/
-
 
 RUN chown --changes --silent --no-dereference --recursive \
     --from=0:0 ${USER_ID}:${GROUP_ID} \
@@ -47,14 +45,12 @@ RUN bundle install
 RUN yarn install --check-files
 
 # Copy over all files
-COPY --chown=${USER_ID}:${GROUP_ID} . .
+COPY . .
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 
 # Allow access to port 3000
 EXPOSE 3000
-
-
 
 # Start the main process.
 CMD ["rails", "server", "-b", "0.0.0.0"]

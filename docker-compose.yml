@@ -16,11 +16,15 @@ services:
         GROUP_ID: ${GROUP_ID:-0}
         USER_ID: ${USER_ID:-0}
 
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+        command: bash -c "chown ${USER_ID:-0}:${GROUP_ID:-0} /var/lib/postgresql/data && \
+                          rm -f tmp/pids/server.pid && \
+                          bundle exec rails server -p 3000 -b '0.0.0.0'"
 
     volumes:
       - .:/myapp
       - /myapp/node_modules
+    tmpfs:
+      - /myapp/tmp/
 
     ports:
       - "3000:3000"
@@ -41,6 +45,6 @@ services:
 
     command: "./bin/webpack-dev-server --hot --port 3035"
     volumes:
-      - .:/webpacker
+      - .:/myapp
     ports:
       - "3035:3035"
