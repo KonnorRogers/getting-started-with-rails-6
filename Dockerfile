@@ -18,6 +18,7 @@ ARG USER_ID=1000
 ARG GROUP_ID=1000
 ARG APP_DIR=/home/user/myapp
 
+
 # Create a non-root user
 RUN groupadd --gid $GROUP_ID user
 RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
