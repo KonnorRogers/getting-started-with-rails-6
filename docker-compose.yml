@@ -1,21 +1,36 @@
 version: '3'
 services:
   db:
-    env_file:
-      - ./.env.development
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: example
+
     image: postgres:12.2
     volumes:
       - ./tmp/data:/var/lib/postgresql/data
 
   web:
-    env_file:
-      - ./.env.development
+    environment:
+      #### FOR LINUX USERS
+      # found by running $(id -u $USER)
+      USER_ID: 1000
+
+      # found by running $(id -g $USER)
+      GROUP_ID: 1000
+      #### END FOR LINUX USERS
+
+      # Rails, Node, Webpacker
+      NODE_ENV: development
+      RAILS_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+
     user: ${USER_ID:-1000}:${GROUP_ID:-1000}
     build:
       context: .
       args:
         GROUP_ID: ${GROUP_ID:-1000}
         USER_ID: ${USER_ID:-1000}
+        APP_DIR: ${APP_DIR:-/home/user/myapp}
 
     command: bash -c "rm -f tmp/pids/server.pid &&
                       ./bin/webpack-dev-server --hot --port 3035 &
