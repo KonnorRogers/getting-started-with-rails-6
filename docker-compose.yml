@@ -19,10 +19,10 @@ services:
     build:
       context: .
       args:
-        # echo $(id -u $USER)
+        # echo $(id -g $USER)
         GROUP_ID: 1000
 
-        # echo $(id -u $USER)
+        # echo $(id -g $USER)
         USER_ID: 1000
         APP_DIR: /home/user/myapp
 
