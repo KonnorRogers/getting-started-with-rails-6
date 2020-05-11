@@ -14,6 +14,9 @@ RUN apt-get update -qq && apt-get install -y \
 # This is where we build the rails app
 FROM builder as rails-app
 
+# Allow access to port 3000
+EXPOSE 3000
+
 # This is to fix an issue on Linux with permissions issues
 ARG USER_ID=1000
 ARG GROUP_ID=1000
@@ -26,31 +29,31 @@ RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
-RUN mkdir -p /myapp
-WORKDIR /myapp
+ENV APP_DIR /myapp/
+
+RUN mkdir -p $APP_DIR
+WORKDIR $APP_DIR
 
 # Install rails related dependencies
-COPY Gemfile* /myapp/
-COPY package.json /myapp/
-COPY yarn.lock /myapp/
+COPY Gemfile* $APP_DIR
 
-RUN chown --changes --silent --no-dereference --recursive \
-    --from=0:0 ${USER_ID}:${GROUP_ID} \
-      /myapp
-
-# Define the user running the container
-USER user
+# For webpacker / node_modules
+COPY package.json $APP_DIR
+COPY yarn.lock $APP_DIR
 
 RUN bundle install
-RUN yarn install --check-files
 
 # Copy over all files
 COPY . .
 
-ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+# Permissions crap
+RUN chown -R $USER_ID:$GROUP_ID $APP_DIR
+RUN yarn install --check-files
 
-# Allow access to port 3000
-EXPOSE 3000
+# Define the user running the container
+USER $USER_ID:$GROUP_ID
+
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 
 # Start the main process.
 CMD ["rails", "server", "-b", "0.0.0.0"]
