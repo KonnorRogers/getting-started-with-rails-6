@@ -1,6 +1,5 @@
 {
-  "name": "practice-rails-6",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT"
+  "name": "myapp",
+  "private": true,
+  "version": "0.1.0"
 }
