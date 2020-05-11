@@ -2,14 +2,14 @@ version: '3'
 services:
   db:
     env_file:
-      - ./.env
+      - ./.env.development
     image: postgres:12.2
     volumes:
       - ./tmp/data:/var/lib/postgresql/data
 
   web:
     env_file:
-      - ./.env
+      - ./.env.development
     user: ${USER_ID:-1000}:${GROUP_ID:-1000}
     build:
       context: .
