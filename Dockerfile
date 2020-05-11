@@ -36,7 +36,9 @@ RUN mkdir -p $APP_DIR/public/packs && \
     mkdir -p $APP_DIR/tmp/db && \
     mkdir -p $APP_DIR/tmp/cache && \
     mkdir -p $APP_DIR/node_modules && \
-    mkdir -p $APP_DIR/log
+    mkdir -p $APP_DIR/log && \
+    mkdir -p $APP_DIR/storage
+
 
 WORKDIR $APP_DIR
 
