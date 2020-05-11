@@ -29,41 +29,42 @@ RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
-ENV APP_DIR /myapp/
+ENV APP_DIR /home/user/myapp
+
+# Permissions crap
+RUN mkdir -p $APP_DIR
+RUN chown -R $USER_ID:$GROUP_ID $APP_DIR
+
+# Define the user running the container
+USER $USER_ID:$GROUP_ID
+
 
 # Workaround for permissions
-RUN mkdir -p $APP_DIR/public/packs && \
-    mkdir -p $APP_DIR/tmp/db && \
-    mkdir -p $APP_DIR/tmp/cache && \
-    mkdir -p $APP_DIR/node_modules && \
-    mkdir -p $APP_DIR/log && \
-    mkdir -p $APP_DIR/storage && \
-    mkdir -p /usr/local/bundle
+# RUN mkdir -p $APP_DIR/public/packs && \
+#     mkdir -p $APP_DIR/tmp/db && \
+#     mkdir -p $APP_DIR/tmp/cache && \
+#     mkdir -p $APP_DIR/node_modules && \
+#     mkdir -p $APP_DIR/log && \
+#     mkdir -p $APP_DIR/storage && \
+#     mkdir -p /usr/local/bundle
 
 
 WORKDIR $APP_DIR
 
 # Install rails related dependencies
-COPY Gemfile* $APP_DIR
+COPY --chown=$USER_ID:$GROUP_ID Gemfile* $APP_DIR/
 
 # For webpacker / node_modules
-COPY package.json $APP_DIR
-COPY yarn.lock $APP_DIR
+COPY --chown=$USER_ID:$GROUP_ID package.json $APP_DIR
+COPY --chown=$USER_ID:$GROUP_ID yarn.lock $APP_DIR
 
 RUN bundle install
-RUN chown -R $USER_ID:$GROUP_ID /usr/local/bundle/cache
-
 
 # Copy over all files
-COPY . .
-
-# Permissions crap
-RUN chown -R $USER_ID:$GROUP_ID $APP_DIR
+COPY --chown=$USER_ID:$GROUP_ID . .
 
 RUN yarn install --check-files
 
-# Define the user running the container
-USER $USER_ID:$GROUP_ID
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 
