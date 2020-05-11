@@ -28,6 +28,7 @@ services:
         APP_DIR: /home/user/myapp
 
     command: bash -c "rm -f tmp/pids/server.pid &&
+                      chown -R 1000:1000 /var/lib/postgresql/data &&
                       ./bin/webpack-dev-server --hot --port 3035 &
                       bundle exec rails server -p 3000 -b '0.0.0.0'"
 

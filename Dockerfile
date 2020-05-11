@@ -27,9 +27,8 @@ COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
 # Permissions crap
-RUN mkdir -p $APP_DIR && mkdir -p /var/lib/postgresql/data
-RUN chown -R $USER_ID:$GROUP_ID $APP_DIR && \
-    chown -R $USER_ID:$GROUP_ID /var/lib/postgresql/data
+RUN mkdir -p $APP_DIR
+RUN chown -R $USER_ID:$GROUP_ID $APP_DIR
 
 
 # Define the user running the container
