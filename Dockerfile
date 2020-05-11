@@ -38,17 +38,6 @@ RUN chown -R $USER_ID:$GROUP_ID $APP_DIR
 # Define the user running the container
 USER $USER_ID:$GROUP_ID
 
-
-# Workaround for permissions
-# RUN mkdir -p $APP_DIR/public/packs && \
-#     mkdir -p $APP_DIR/tmp/db && \
-#     mkdir -p $APP_DIR/tmp/cache && \
-#     mkdir -p $APP_DIR/node_modules && \
-#     mkdir -p $APP_DIR/log && \
-#     mkdir -p $APP_DIR/storage && \
-#     mkdir -p /usr/local/bundle
-
-
 WORKDIR $APP_DIR
 
 # Install rails related dependencies
