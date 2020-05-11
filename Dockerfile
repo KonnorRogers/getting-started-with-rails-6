@@ -37,7 +37,8 @@ RUN mkdir -p $APP_DIR/public/packs && \
     mkdir -p $APP_DIR/tmp/cache && \
     mkdir -p $APP_DIR/node_modules && \
     mkdir -p $APP_DIR/log && \
-    mkdir -p $APP_DIR/storage
+    mkdir -p $APP_DIR/storage && \
+    mkdir -p /usr/local/bundle
 
 
 WORKDIR $APP_DIR
@@ -50,12 +51,15 @@ COPY package.json $APP_DIR
 COPY yarn.lock $APP_DIR
 
 RUN bundle install
+RUN chown -R $USER_ID:$GROUP_ID /usr/local/bundle/cache
+
 
 # Copy over all files
 COPY . .
 
 # Permissions crap
 RUN chown -R $USER_ID:$GROUP_ID $APP_DIR
+
 RUN yarn install --check-files
 
 # Define the user running the container
