@@ -2,14 +2,10 @@
 FROM ruby:2.5.8 as builder
 
 # Add Yarn to the repository
-RUN curl https://deb.nodesource.com/setup_12.x | bash \
-    && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN curl https://deb.nodesource.com/setup_12.x | bash     && curl https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -     && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
 # Install system dependencies & clean them up
-RUN apt-get update -qq && apt-get install -y \
-  postgresql-client build-essential yarn nodejs \
-  && rm -rf /var/lib/apt/lists/*
+RUN apt-get update -qq && apt-get install -y   postgresql-client build-essential yarn nodejs   && rm -rf /var/lib/apt/lists/*
 
 # This is where we build the rails app
 FROM builder as rails-app
@@ -20,6 +16,7 @@ EXPOSE 3000
 # This is to fix an issue on Linux with permissions issues
 ARG USER_ID=1000
 ARG GROUP_ID=1000
+ARG APP_DIR=/home/user/myapp
 
 # Create a non-root user
 RUN groupadd --gid $GROUP_ID user
@@ -28,8 +25,6 @@ RUN useradd --no-log-init --uid $USER_ID --gid $GROUP_ID user --create-home
 # Remove existing running server
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
-
-ENV APP_DIR /home/user/myapp
 
 # Permissions crap
 RUN mkdir -p $APP_DIR
