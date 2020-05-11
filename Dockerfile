@@ -31,7 +31,13 @@ RUN chmod +x /usr/bin/entrypoint.sh
 
 ENV APP_DIR /myapp/
 
-RUN mkdir -p $APP_DIR
+# Workaround for permissions
+RUN mkdir -p $APP_DIR/public/packs && \
+    mkdir -p $APP_DIR/tmp/db && \
+    mkdir -p $APP_DIR/tmp/cache && \
+    mkdir -p $APP_DIR/node_modules && \
+    mkdir -p $APP_DIR/log
+
 WORKDIR $APP_DIR
 
 # Install rails related dependencies
