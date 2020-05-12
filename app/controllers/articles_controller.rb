@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ArticlesController < ApplicationController
   def new; end
 
@@ -7,3 +5,4 @@ class ArticlesController < ApplicationController
     render plain: params[:article].inspect
   end
 end
+
