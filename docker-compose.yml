@@ -3,36 +3,27 @@ version: '3'
 services:
   db:
     image: postgres:12.2
-    env_file:
-      - ./development.env
-    user: ${USER_ID}:${GROUP_ID}
+    environment:
+      POSTGRES_PASSWORD: example
     volumes:
-      - ./tmp/data:/var/lib/postgresql/data
-      # allows us to fake a user
-      - /etc/passwd:/etc/passwd:ro
+      - db_data:/var/lib/postgresql/data
 
   web:
-    env_file:
-      - ./.env.development
-    user: ${USER_ID}:${GROUP_ID}
     environment:
       NODE_ENV: development
       RAILS_ENV: development
       WEBPACK_DEV_SERVER_HOST: "0.0.0.0"
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
-      APP_DIR: /home/user/myapp
 
     build:
       context: .
       args:
-        # echo $(id -u $USER)
-        GROUP_ID: 1000
-
-        # echo $(id -g $USER)
         USER_ID: 1000
+        GROUP_ID: 1000
         APP_DIR: /home/user/myapp
 
+    # user: ${USER_ID}:${GROUP_ID}
     command: bash -c "rm -f tmp/pids/server.pid &&
                       ./bin/webpack-dev-server --hot --port 3035 &
                       bundle exec rails server -p 3000 -b '0.0.0.0'"
@@ -47,3 +38,6 @@ services:
 
     depends_on:
       - db
+
+volumes:
+  db_data:
