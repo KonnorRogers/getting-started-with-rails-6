@@ -3,18 +3,25 @@ version: '3'
 services:
   db:
     image: postgres:12.2
-    environment:
-      POSTGRES_PASSWORD: example
+    env_file:
+      - ./development.env
+    user: ${USER_ID}:${GROUP_ID}
     volumes:
-      - db_data:/var/lib/postgresql/data
+      - ./tmp/data:/var/lib/postgresql/data
+      # allows us to fake a user
+      - /etc/passwd:/etc/passwd:ro
 
   web:
+    env_file:
+      - ./.env.development
+    user: ${USER_ID}:${GROUP_ID}
     environment:
       NODE_ENV: development
       RAILS_ENV: development
       WEBPACK_DEV_SERVER_HOST: "0.0.0.0"
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
+      APP_DIR: /home/user/myapp
 
     build:
       context: .
@@ -40,6 +47,3 @@ services:
 
     depends_on:
       - db
-
-volumes:
-  db_data:
