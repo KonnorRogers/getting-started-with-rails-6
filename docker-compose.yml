@@ -4,7 +4,6 @@ services:
   db:
     image: postgres:12.2
     environment:
-      POSTGRES_USER: user
       POSTGRES_PASSWORD: example
     volumes:
       - db_data:/var/lib/postgresql/data
@@ -14,13 +13,13 @@ services:
       NODE_ENV: development
       RAILS_ENV: development
       WEBPACK_DEV_SERVER_HOST: "0.0.0.0"
-      POSTGRES_USER: user
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
 
     build:
       context: .
       args:
-        # echo $(id -g $USER)
+        # echo $(id -u $USER)
         GROUP_ID: 1000
 
         # echo $(id -g $USER)
