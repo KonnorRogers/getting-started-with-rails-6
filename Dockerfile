@@ -12,6 +12,7 @@ FROM builder as rails-app
 
 # Allow access to port 3000
 EXPOSE 3000
+EXPOSE 3035
 
 # This is to fix an issue on Linux with permissions issues
 ARG USER_ID=1000
