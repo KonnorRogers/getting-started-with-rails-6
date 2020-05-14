@@ -1,0 +1,21 @@
+.container {
+  background: white;
+  max-width: 800px;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+div {
+  margin: 0 auto;
+}
+
+.article-title {
+  max-width: 300px;
+  background: none;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 2px solid lightblue;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+}

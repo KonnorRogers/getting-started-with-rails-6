@@ -2,6 +2,10 @@
 
 # Articles
 class ArticlesController < ApplicationController
+  http_basic_authenticate_with name: helpers.secret_admin_name,
+                               password: helpers.secret_admin_password,
+                               except: %i[index show]
+
   def index
     @articles = Article.all
   end

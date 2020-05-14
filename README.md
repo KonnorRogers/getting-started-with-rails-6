@@ -65,3 +65,12 @@ docker-compose run --rm web /bin/bash
 rails [command]
 ```
 
+### Deployment
+
+Make sure you have the following ENV variables set:
+
+```bash
+# Authentication name & password to add / delete comments and articles
+ADMIN_NAME="<Name>"
+ADMIN_PASSWORD="<Password>"
+```

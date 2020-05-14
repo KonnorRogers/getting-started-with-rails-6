@@ -1,17 +1,10 @@
-<p>
-  <strong>
-    Title:
-  </strong>
-  <%= @article.title %>
-</p>
+<%= render @article %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @article.text %>
-</p>
+<h2> Comments </h2>
+<%= render @article.comments %>
 
-<%= render 'comments', article: @article %>
-<%= render 'comments/form', article: @article %>
+<%= render 'comments/form' %>
 
 <%= link_to "Back", articles_path %>
+|
 <%= link_to 'Edit', edit_article_path(@article) %>
