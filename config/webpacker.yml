@@ -63,7 +63,7 @@ development:
     public: localhost:3035
     hmr: false
     # Inline should be set to true if using HMR
-    inline: true
+    inline: false
     overlay: true
     compress: true
     disable_host_check: true

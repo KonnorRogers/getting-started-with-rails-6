@@ -34,10 +34,9 @@ services:
       NODE_ENV: development
       RAILS_ENV: development
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
-    command: "./bin/webpack-dev-server --hot --inline=true --watch-poll
-              --watch-aggregate-timeout=200"
+    command: "./bin/webpack-dev-server"
     volumes:
-      - .:/webpacker
+      - .:/home/user/myapp
     ports:
       - '3035:3035'
 
