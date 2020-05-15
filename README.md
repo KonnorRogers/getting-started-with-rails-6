@@ -3,6 +3,16 @@
 A copy of the blog created in [Rails getting
 started](https://guides.rubyonrails.org/getting_started.html#creating-the-blog-application)
 
+This is a reference application.
+
+The blog post can be found here:
+
+[https://paramagicdev.github.io/my-blog/rails/getting-started-with-rails-6/](https://paramagicdev.github.io/my-blog/rails/getting-started-with-rails-6/)
+
+And the deployed application can be found here:
+
+[https://getting-started-with-rails-6.herokuapp.com/](https://getting-started-with-rails-6.herokuapp.com/)
+
 ## Prerequisites
 
 - Docker
@@ -26,6 +36,12 @@ variables
 
 ```bash
 docker-compose build
+```
+
+Alternatively:
+
+```bash
+docker-compose up --build
 ```
 
 ### Creating the database
@@ -63,6 +79,12 @@ docker-compose run --rm web rails [command]
 # Alternatively, open a bash instance and run normally
 docker-compose run --rm web /bin/bash
 rails [command]
+```
+
+### Yarn integrity issues
+
+```bash
+docker-compose run --rm web yarn install --check-files
 ```
 
 ### Deployment
