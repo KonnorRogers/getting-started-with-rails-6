@@ -45,10 +45,15 @@ a {
 
 .articles-table td {
   padding: .75rem;
+  border: 1px solid black;
 }
 
 .articles-table-heading {
   font-size: 1.5rem;
+
+  & > th {
+    padding-bottom: 0.5rem;
+  }
 }
 
 .articles-table-item {
@@ -56,7 +61,7 @@ a {
   text-align: center;
 
   &:nth-child(even) {
-    background: lightgray;
+    background: #ececec;
   }
 }
 

@@ -1,9 +1,11 @@
 <%= render @article %>
 
-<div class="comments-container">
-  <h2> Comments </h2>
-  <%= render @article.comments %>
-</div>
+<% if !@article.comments.empty? %>
+  <div class="comments-container">
+    <h2> Comments </h2>
+    <%= render @article.comments %>
+  </div>
+<% end %>
 
 <%= render 'comments/form' %>
 
