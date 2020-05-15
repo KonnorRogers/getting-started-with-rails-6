@@ -1,7 +1,9 @@
 <%= render @article %>
 
-<h2> Comments </h2>
-<%= render @article.comments %>
+<div class="comments-container">
+  <h2> Comments </h2>
+  <%= render @article.comments %>
+</div>
 
 <%= render 'comments/form' %>
 

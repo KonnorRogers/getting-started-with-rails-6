@@ -9,14 +9,57 @@ div {
   margin: 0 auto;
 }
 
-.article-title {
+a {
+  color: blue;
+  display: inline-block;
+  padding: 0.5rem;
+  text-decoration: none;
+
+  &:hover {
+    margin-bottom: -1px;
+    border-bottom: 1px solid blue;
+  }
+}
+
+.article-container,
+.comments-container {
   max-width: 300px;
   background: none;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  border: 2px solid black;
-  border-radius: 8px;
   padding: 1rem;
+  padding-bottom: 2rem;
+  margin: 2rem 0;
+}
+
+.article-title {
+  font-weight: bold;
   font-size: 1.5rem;
   text-align: center;
-  padding-bottom: 2rem;
 }
+
+.articles-table {
+  min-width: 400px;
+  margin-top: 1rem;
+  border-collapse: collapse;
+  font-size: 1.2rem;
+}
+
+.articles-table td {
+  padding: .75rem;
+}
+
+.articles-table-heading {
+  font-size: 1.5rem;
+}
+
+.articles-table-item {
+  border: 1px solid black;
+  text-align: center;
+
+  &:nth-child(even) {
+    background: lightgray;
+  }
+}
+
+.comments-container {
+}
+

@@ -2,15 +2,15 @@
 
 <%= link_to 'New article', new_article_path %>
 
-<table>
-  <tr>
+<table class="articles-table">
+  <tr class="articles-table-heading">
     <th>Title</th>
     <th>Text</th>
     <th colspan="3"></th>
   </tr>
 
   <% @articles.each do |article| %>
-    <tr>
+    <tr class="articles-table-item">
       <td><%= article.title %></td>
       <td><%= article.text %></td>
       <td><%= link_to 'Show', article_path(article) %></td>
