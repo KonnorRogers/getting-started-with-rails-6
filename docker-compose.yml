@@ -37,7 +37,7 @@ services:
         - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
       command: ./bin/webpack-dev-server
       volumes:
-        - .:/webpacker-example-app
+        - .:/webpacker
       ports:
         - '3035:3035'
 
