@@ -67,6 +67,13 @@ rails [command]
 
 ### Deployment
 
+```bash
+heroku login
+heroku apps:create <app-name>
+git push heroku master
+heroku run rails db:migrate
+```
+
 Make sure you have the following ENV variables set:
 
 ```bash
