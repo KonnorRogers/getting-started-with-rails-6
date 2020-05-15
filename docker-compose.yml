@@ -1,18 +1,9 @@
 version: '3'
 
 services:
-  db:
-    image: postgres:12.2
-    environment:
-      POSTGRES_PASSWORD: example
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
   web:
     environment:
-      NODE_ENV: development
-      RAILS_ENV: development
-      WEBPACK_DEV_SERVER_HOST: "0.0.0.0"
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
 
@@ -24,7 +15,6 @@ services:
         APP_DIR: /home/user/myapp
 
     command: bash -c "rm -f tmp/pids/server.pid &&
-                      ./bin/webpack-dev-server --hot --port 3035 --host '0.0.0.0' &
                       bundle exec rails server -p 3000 -b '0.0.0.0'"
 
     volumes:
@@ -33,10 +23,30 @@ services:
 
     ports:
       - "3000:3000"
-      - "3035:3035"
 
     depends_on:
       - db
+      - webpacker
+
+  webpacker:
+    build: .
+    environment:
+      NODE_ENV: development
+      RAILS_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    command: "./bin/webpack-dev-server"
+    volumes:
+      - .:/home/user/myapp
+    ports:
+      - '3035:3035'
+
+  db:
+    image: postgres:12.2
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
 
 volumes:
   db_data:
