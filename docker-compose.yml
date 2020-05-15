@@ -3,7 +3,7 @@ version: '3'
 services:
   web:
     environment:
-      WEBPACKER_DEV_SERVER_HOST: webpacker
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
 
@@ -34,7 +34,8 @@ services:
       NODE_ENV: development
       RAILS_ENV: development
       WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
-    command: ./bin/webpack-dev-server
+    command: "./bin/webpack-dev-server --hot --inline=true --watch-poll
+              --watch-aggregate-timeout=200"
     volumes:
       - .:/webpacker
     ports:
