@@ -28,24 +28,24 @@ services:
       - db
       - webpacker
 
-    webpacker:
-      build: .
-      environment:
-        NODE_ENV: development
-        RAILS_ENV: development
-        WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
-      command: ./bin/webpack-dev-server
-      volumes:
-        - .:/webpacker
-      ports:
-        - '3035:3035'
+  webpacker:
+    build: .
+    environment:
+      NODE_ENV: development
+      RAILS_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+    command: ./bin/webpack-dev-server
+    volumes:
+      - .:/webpacker
+    ports:
+      - '3035:3035'
 
-    db:
-      image: postgres:12.2
-      environment:
-        POSTGRES_PASSWORD: example
-      volumes:
-        - db_data:/var/lib/postgresql/data
+  db:
+    image: postgres:12.2
+    environment:
+      POSTGRES_PASSWORD: example
+    volumes:
+      - db_data:/var/lib/postgresql/data
 
 
 volumes:
