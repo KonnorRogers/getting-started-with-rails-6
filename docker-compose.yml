@@ -1,18 +1,9 @@
 version: '3'
 
 services:
-  db:
-    image: postgres:12.2
-    environment:
-      POSTGRES_PASSWORD: example
-    volumes:
-      - db_data:/var/lib/postgresql/data
-
   web:
     environment:
-      NODE_ENV: development
-      RAILS_ENV: development
-      WEBPACK_DEV_SERVER_HOST: "0.0.0.0"
+      WEBPACK_DEV_SERVER_HOST: webpacker
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: example
 
@@ -33,10 +24,30 @@ services:
 
     ports:
       - "3000:3000"
-      - "3035:3035"
 
     depends_on:
       - db
+      - webpacker
+
+    webpacker:
+      build: .
+      environment:
+        - NODE_ENV=development
+        - RAILS_ENV=development
+        - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+      command: ./bin/webpack-dev-server
+      volumes:
+        - .:/webpacker-example-app
+      ports:
+        - '3035:3035'
+
+    db:
+      image: postgres:12.2
+      environment:
+        POSTGRES_PASSWORD: example
+      volumes:
+        - db_data:/var/lib/postgresql/data
+
 
 volumes:
   db_data:
