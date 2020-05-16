@@ -7,7 +7,6 @@ RUN curl https://deb.nodesource.com/setup_12.x | bash     && curl https://dl.yar
 # Install system dependencies & clean them up
 RUN apt-get update -qq && apt-get install -y \
     postgresql-client build-essential yarn nodejs \
-    #  libc6-dev
     libnotify-dev && \
     rm -rf /var/lib/apt/lists/*
 
