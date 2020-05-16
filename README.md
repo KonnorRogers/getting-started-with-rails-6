@@ -28,7 +28,7 @@ docker-compose -v
 
 ## Getting started
 
-Make sure you set appropriate environment values in the `.env` file.
+Make sure you set appropriate environment values in the `docker-compose.yml` file.
 If you are on Mac or Windows, do not worry about `USER_ID` & `GROUP_ID`
 variables
 
