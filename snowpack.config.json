@@ -3,7 +3,8 @@
     "NODE_ENV": true
   },
   "scripts": {
-    "mount:javascript": "mount app/javascript --to /javascript",
+    "mount:javascript": "mount app/javascript/packs --to /javascripts/javascript",
+    "mount:stylesheets": "mount app/javascript/stylesheets --to /stylesheets/javascript",
     "build:css": "postcss"
   },
   "devOptions": {
