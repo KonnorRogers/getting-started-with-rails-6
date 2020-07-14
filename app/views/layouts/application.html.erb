@@ -6,16 +6,8 @@
     <%= csp_meta_tag %>
 
 
-    <%= stylesheet_link_tag 'application', media: 'all',
-                            'data-turbolinks-track': 'reload' %>
-
-    <%= stylesheet_link_tag '/javascript/global.css', media: 'all',
-                            skip_pipeline: true,
-                            'data-turbolinks-track': 'reload' %>
-
-    <%= javascript_include_tag '/javascript/application', skip_pipeline: true,
-                               'data-turbolinks-track': 'reload' %>
-
+    <link rel="stylesheet" media="all" data-turbolinks-track="reload" href="/_frontend_/css/global.css />
+    <script src="/_frontend_/js/application.js" data-turbolinks-track="reload" type="module" defer></script>
   </head>
 
   <body>

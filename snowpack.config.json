@@ -3,14 +3,13 @@
     "NODE_ENV": true
   },
   "scripts": {
-    "mount:javascript": "mount app/javascript/packs --to /javascripts/javascript",
-    "mount:stylesheets": "mount app/javascript/stylesheets --to /stylesheets/javascript",
-    "build:css": "postcss"
+    "mount:javascript": "mount app/javascript/packs --to /js",
+    "mount:stylesheets": "mount app/javascript/stylesheets --to /css"
   },
   "devOptions": {
     "port": 3035,
     "open": "none",
-    "out": "javascript"
+    "out": "_frontend_"
   },
   "proxy": {
     "0.0.0.0:3035": "0.0.0.0:3035"
@@ -20,7 +19,6 @@
     "baseUrl": "/"
   },
   "plugins": [
-    "@snowpack/plugin-babel",
-    "@snowpack/plugin-parcel"
+    "@snowpack/plugin-babel"
   ]
 }
