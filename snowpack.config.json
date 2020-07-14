@@ -1,0 +1,25 @@
+{
+  "installOptions": {
+    "NODE_ENV": true
+  },
+  "scripts": {
+    "mount:javascript": "mount app/javascript --to /javascript",
+    "build:css": "postcss"
+  },
+  "devOptions": {
+    "port": 3035,
+    "open": "none",
+    "out": "javascript"
+  },
+  "proxy": {
+    "0.0.0.0:3035": "0.0.0.0:3035"
+  },
+  "buildOptions": {
+    "clean": true,
+    "baseUrl": "/"
+  },
+  "plugins": [
+    "@snowpack/plugin-babel",
+    "@snowpack/plugin-parcel"
+  ]
+}

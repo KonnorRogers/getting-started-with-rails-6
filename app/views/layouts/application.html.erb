@@ -9,7 +9,11 @@
     <%= stylesheet_link_tag 'application', media: 'all',
                             'data-turbolinks-track': 'reload' %>
 
-    <%= javascript_include_tag 'application',
+    <%= stylesheet_link_tag 'javascript/application', media: 'all',
+                            skip_pipeline: true,
+                            'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_include_tag 'javascript/application', skip_pipeline: true,
                                'data-turbolinks-track': 'reload' %>
 
   </head>

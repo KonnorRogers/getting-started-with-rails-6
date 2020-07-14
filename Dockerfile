@@ -47,6 +47,7 @@ COPY --chown=$USER_ID:$GROUP_ID Gemfile* $APP_DIR/
 COPY --chown=$USER_ID:$GROUP_ID package.json $APP_DIR
 COPY --chown=$USER_ID:$GROUP_ID yarn.lock $APP_DIR
 
+RUN gem install bundler
 RUN bundle install
 
 # Copy over all files

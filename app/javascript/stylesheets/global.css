@@ -15,10 +15,11 @@ a {
   padding: 0.5rem;
   text-decoration: none;
 
-  &:hover {
-    margin-bottom: -1px;
-    border-bottom: 1px solid blue;
-  }
+}
+
+a:hover {
+  margin-bottom: -1px;
+  border-bottom: 1px solid blue;
 }
 
 .article-container,
@@ -50,21 +51,18 @@ a {
 
 .articles-table-heading {
   font-size: 1.5rem;
+}
 
-  & > th {
-    padding-bottom: 0.5rem;
-  }
+.articles-table-heading > th {
+  padding-bottom: 0.5rem;
 }
 
 .articles-table-item {
   border: 1px solid black;
   text-align: center;
-
-  &:nth-child(even) {
-    background: #ececec;
-  }
 }
 
-.comments-container {
+.artiles-table-item:nth-child(even) {
+    background: #ececec;
 }
 

@@ -13,7 +13,7 @@ import UJS from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import ActiveStorage from "@rails/activestorage"
 import "./channels"
-import "./stylesheets/global.scss"
+// import "./stylesheets/global.scss"
 
 UJS.start()
 Turbolinks.start()
